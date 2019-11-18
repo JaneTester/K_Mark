@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -39,12 +40,19 @@ public class LoginPageTest {
         wait.until(ExpectedConditions.visibilityOf(stepOnePage.getHeading()));
         Assert.assertEquals("https://mark.thisisit.ru/personal/add-company", driver.getCurrentUrl());
     }
+
     @Test
-    public void NewPasswordTest (){
-        loginPage.NewPassword (loginData.login);
+    public void NewPasswordTest() {
+        loginPage.NewPassword(loginData.login);
         WebDriverWait wait = (new WebDriverWait(driver, 5));
         wait.until(ExpectedConditions.visibilityOf(loginPage.getForgotPassPopUp()));
-        Assert.assertEquals("Мы отправили новый пароль на Вашу почту.",loginPage.getForgotPassPopUp().getText());
+        Assert.assertEquals("Мы отправили новый пароль на Вашу почту.", loginPage.getForgotPassPopUp().getText());
+    }
+
+    @Test
+    public void ElementHasClassTest() {
+        loginPage.SignInInvalidValue(loginData.password);
+        Assert.assertEquals(true, loginPage.hasClass("error1"));
     }
 }
 
