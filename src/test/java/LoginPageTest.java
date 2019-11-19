@@ -52,7 +52,18 @@ public class LoginPageTest {
     @Test
     public void ElementHasClassTest() {
         loginPage.SignInInvalidValue(loginData.password);
-        Assert.assertEquals(true, loginPage.hasClass("error1"));
+        Assert.assertEquals(true, loginPage.HasClass("error"));
     }
-}
+
+    @Test
+    public void EmptyFieldLoginTest() {
+        loginPage.EmptyFieldLogin();
+        }
+    @Test
+    public void EmptyFieldPassTest() {
+        loginPage.EmptyFieldPass();
+    }
+
+            }
+
 

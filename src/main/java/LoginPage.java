@@ -1,3 +1,4 @@
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,8 +12,12 @@ public class LoginPage extends LoginPageElements implements Messages {
         this.driver = driver;
     }
 
-    WebElement getPopUpMessages() {
-        return driver.findElement(popUpMessages);
+    public WebElement getPopUpMessages() {
+        return driver.findElement(Messages.popUpMessages);
+    }
+
+    public WebElement getErrorMessagesInForm() {
+        return driver.findElement(Messages.errorMessagesInForm);
     }
 
     public StepOnePage SignInAccount(String login, String password) {
@@ -36,7 +41,7 @@ public class LoginPage extends LoginPageElements implements Messages {
         getLoginButton().click();
     }
 
-    public boolean hasClass(String className) {
+    public boolean HasClass(String className) {
         String classes = getPopUpMessages().getAttribute("class");
         for (String c : classes.split(" ")) {
             if (c.equals(className)) {
@@ -46,4 +51,21 @@ public class LoginPage extends LoginPageElements implements Messages {
         return false;
     }
 
+    public String EmptyFieldLogin() {
+        getLogin().sendKeys(Keys.ENTER);
+        String errorLogin = getLogin().findElement(errorMessagesInForm).getText();
+        System.out.println("Логин - " + errorLogin);
+        return errorLogin;
+    }
+
+    public String EmptyFieldPass() {
+        getPassword().sendKeys(Keys.ENTER);
+        String errorPass = getPassword().findElement(errorMessagesInForm).getText();
+        System.out.println("Пароль - " + errorPass);
+        return errorPass;
+    }
 }
+
+
+
+
